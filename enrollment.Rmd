@@ -1,0 +1,27 @@
+---
+title: "enrollment"
+author: "Jack Schroeder"
+date: "10/15/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(janitor)
+
+ef18 <- read_excel("class_enrollment_summary_by_term_10_12.xlsx", skip=2) %>% 
+  clean_names()
+
+ef17 <- read_excel("class_enrollment_summary_by_term_10.20.17.xlsx", skip=2) %>% 
+  clean_names()
+
+ef15 <- read_excel("CourseEnrollmentStatistics.xlsx") %>% 
+  clean_names()
+
+ef16<- read_excel("copy_of_class_enrollment_summary_by_term_10.06.2016 (1).xlsx", skip=2) %>% 
+  clean_names()
+```
