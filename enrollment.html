@@ -148,31 +148,25 @@ $(document).ready(function () {
 ## #   instructor_full_name &lt;chr&gt;, u_grad &lt;dbl&gt;, grad &lt;dbl&gt;,
 ## #   non_degree &lt;dbl&gt;, x_reg &lt;dbl&gt;, vus &lt;dbl&gt;, employee &lt;dbl&gt;,
 ## #   withdraw &lt;dbl&gt;, total &lt;dbl&gt;</code></pre>
-<pre class="r"><code>left_join(ef18,ef17,by=&quot;course_id&quot;) %&gt;% 
-  mutate(deltau_grad = abs(u_grad.y-u_grad.x)) %&gt;% 
+<pre class="r"><code>left_join(ef18,ef17,by=&quot;course_id&quot;,suffix=c(&quot;.18&quot;,&quot;.17&quot;)) %&gt;% 
+  mutate(deltau_grad = (u_grad.18-u_grad.17)) %&gt;% 
+  select(course_title.17,course_name.17,deltau_grad) %&gt;% 
   arrange(desc(deltau_grad))</code></pre>
-<pre><code>## # A tibble: 2,155 x 28
-##    course_id course_title.x course_name.x course_section_… course_departme…
-##    &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;           
-##  1 113501    CULTBLF 22     The Ancient … 001              General Educati…
-##  2 126213    SCILIVSY 20    Psychologica… 001              General Educati…
-##  3 121778    ETHRSON 18     Classic Chns… 001              General Educati…
-##  4 120049    ETHRSON 44     What is a Re… 001              General Educati…
-##  5 112754    SOCWORLD 30    Moctezuma's … 001              General Educati…
-##  6 152514    COMPSCI 50     Intro to Com… 001              Computer Science
-##  7 114027    STAT 104       Intro Quant … 001              Statistics      
-##  8 110424    MCB 60         Cell Bio Mol… 001              Molecular &amp; Cel…
-##  9 107464    SOCWORLD 47    Contemporary… 001              General Educati…
-## 10 122553    FOLKMYTH 128   Fairy Tale, … 001              Folklore &amp; Myth…
-## # ... with 2,145 more rows, and 23 more variables:
-## #   instructor_full_name.x &lt;chr&gt;, u_grad.x &lt;dbl&gt;, grad.x &lt;dbl&gt;,
-## #   non_degree.x &lt;dbl&gt;, x_reg.x &lt;dbl&gt;, vus.x &lt;dbl&gt;, employee.x &lt;dbl&gt;,
-## #   withdraw.x &lt;dbl&gt;, total.x &lt;dbl&gt;, course_title.y &lt;chr&gt;,
-## #   course_name.y &lt;chr&gt;, course_section_code.y &lt;chr&gt;,
-## #   course_department.y &lt;chr&gt;, instructor_full_name.y &lt;chr&gt;,
-## #   u_grad.y &lt;dbl&gt;, grad.y &lt;dbl&gt;, non_degree.y &lt;dbl&gt;, x_reg.y &lt;dbl&gt;,
-## #   vus.y &lt;dbl&gt;, employee.y &lt;dbl&gt;, withdraw.y &lt;dbl&gt;, total.y &lt;dbl&gt;,
-## #   deltau_grad &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 2,155 x 3
+##    course_title.17 course_name.17                 deltau_grad
+##    &lt;chr&gt;           &lt;chr&gt;                                &lt;dbl&gt;
+##  1 CULTBLF 22      The Ancient Greek Hero                 340
+##  2 COMPSCI 50      Intro to Computer Science I             94
+##  3 PHYSCI 2        Physical Sciences 2                     77
+##  4 SCIPHUNV 27     Science and Cooking                     74
+##  5 SCIPHUNV 26     Finding Our Way                         65
+##  6 EMREAS 20       Business &amp; Politics of Health           59
+##  7 ANTHRO 1683     The City Jail: Race and                 58
+##  8 COMPSCI 121     Intro to Theory of Computation          56
+##  9 ECON 1017       A Libertarian Perspective               56
+## 10 ECON 1057       Game Theory with Applications           52
+## # ... with 2,145 more rows</code></pre>
+<pre class="r"><code>#ID defines a course - problem set</code></pre>
 
 
 

@@ -36,9 +36,12 @@ ef16<- read_excel("copy_of_class_enrollment_summary_by_term_10.06.2016 (1).xlsx"
 rbind(ef17,ef18) %>% 
   arrange(desc(u_grad))
 
-left_join(ef18,ef17,by="course_id") %>% 
-  mutate(deltau_grad = abs(u_grad.y-u_grad.x)) %>% 
+left_join(ef18,ef17,by="course_id",suffix=c(".18",".17")) %>% 
+  mutate(deltau_grad = (u_grad.18-u_grad.17)) %>% 
+  select(course_title.17,course_name.17,deltau_grad) %>% 
   arrange(desc(deltau_grad))
+
+#ID defines a course - problem set
 
 ```
 
