@@ -14,14 +14,31 @@ library(readxl)
 library(janitor)
 
 ef18 <- read_excel("class_enrollment_summary_by_term_10_12.xlsx", skip=2) %>% 
-  clean_names()
+  clean_names() %>% 
+  filter(!is.na(course_title)) %>% 
+  distinct(course_id,.keep_all=TRUE)
 
-ef17 <- read_excel("class_enrollment_summary_by_term_10.20.17.xlsx", skip=2) %>% 
-  clean_names()
+ef17 <- read_excel("class_enrollment_summary_by_term_10.20.17.xlsx", skip=2) %>%
+  clean_names() %>% 
+  filter(!is.na(course_title)) %>% 
+    distinct(course_id,.keep_all=TRUE)
 
 ef15 <- read_excel("CourseEnrollmentStatistics.xlsx") %>% 
-  clean_names()
+  clean_names() %>% 
+  filter(!is.na(title))
 
 ef16<- read_excel("copy_of_class_enrollment_summary_by_term_10.06.2016 (1).xlsx", skip=2) %>% 
-  clean_names()
+  clean_names() %>% 
+  filter(!is.na(course_title))
 ```
+
+```{r}
+rbind(ef17,ef18) %>% 
+  arrange(desc(u_grad))
+
+left_join(ef18,ef17,by="course_id") %>% 
+  mutate(deltau_grad = abs(u_grad.y-u_grad.x)) %>% 
+  arrange(desc(deltau_grad))
+
+```
+
